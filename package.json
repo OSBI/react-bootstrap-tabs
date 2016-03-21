@@ -1,0 +1,25 @@
+{
+  "name": "saiku-react-bootstrap-tabs",
+  "version": "1.0.0",
+  "description": "Tabs component for React Bootstrap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OSBI/saiku-react-bootstrap-tabs.git"
+  },
+  "keywords": [
+    "react",
+    "bootstrap",
+    "tab",
+    "tabs"
+  ],
+  "author": "Bruno Gama Catao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OSBI/saiku-react-bootstrap-tabs/issues"
+  },
+  "homepage": "https://github.com/OSBI/saiku-react-bootstrap-tabs#readme"
+}
