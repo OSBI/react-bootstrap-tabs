@@ -14,44 +14,11 @@
  *   limitations under the License.
  */
 
-var webpack           = require('webpack');
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-var WebpackDevServer  = require('webpack-dev-server');
-var autoprefixer      = require('autoprefixer');
-var path              = require('path');
-var figlet            = require('figlet');
-var chalk             = require('chalk');
-var os                = require('os');
-var UglifyJsPlugin    = webpack.optimize.UglifyJsPlugin;
-var env               = process.env.WEBPACK_ENV;
+var webpack = require('webpack');
+var path = require('path');
 
-var appName = 'saiku-react-bootstrap-tabs';
-var host = 'localhost';
-var port = 3000;
 var contentBase = './';
-var plugins = [];
 var outputFile = 'index.js';
-
-if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true }));
-} 
-else if (env === 'dev') {
-  var chromeBrowser = (os.type() === 'Linux' ? 'chromium-browser' : 'google chrome');
-  plugins.push(
-    // browse to http://localhost:3001 during development
-    new BrowserSyncPlugin(
-      {
-        host: host,
-        port: 3001,
-        server: contentBase
-        // browser: chromeBrowser
-      },
-      {
-        reload: true
-      }
-    )
-  );
-}
 
 var config = {
   entry: './src/index.js',
@@ -59,88 +26,47 @@ var config = {
   output: {
     path: __dirname,
     filename: outputFile,
-    publicPath: contentBase
+    publicPath: contentBase,
+    library: 'SaikuReactBootstrapTabs',
+    libraryTarget: 'umd'
   },
+  externals: [
+    {
+      'react': {
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: 'react',
+        amd: 'react'
+      }
+    },
+    {
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom'
+      }
+    }
+  ],  
   module: {
     loaders: [
       {
-        test: /\.html$/,
-        loader: 'html-loader'
-      },
-      {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader'
-      },
-      {
-        test: /\.(png|jpg|svg)$/,
-        loader: 'file-loader?name=[path][name].[ext]?[hash]'
-      },
-      {
         test: /\.(jsx|js)$/,
         loader: 'babel',
-        exclude: /(node_modules|bower_components)/
+        exclude: /node_modules/
       },
       {
         test: /\.(jsx|js)$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
-      },
-      {
-        test: /react/,
-        loader: env === 'dev' ? 'null' : 'noop',
-        exclude: /node_modules/
-      },
-      {
-        test: /react-autobind/,
-        loader: env === 'dev' ? 'null' : 'noop',
-        exclude: /node_modules/
-      },
-      {
-        test: /underscore/,
-        loader: env === 'dev' ? 'null' : 'noop',
-        exclude: /node_modules/
       }
     ]
-  },
-  node: {
-    dns: 'empty',
-    net: 'empty',
-    tls: 'empty'
-  },
-  postcss: function() {
-    return [autoprefixer];
   },
   resolve: {
     root: path.resolve('./src'),
     extensions: ['', '.js', '.jsx']
   },
-  plugins: plugins
+  plugins: []
 };
-
-if (env === 'dev') {
-  // browse to http://localhost:3000 during development
-  new WebpackDevServer(webpack(config), {
-    contentBase: contentBase,
-    hot: false,
-    debug: true,
-    historyApiFallback: true
-  }).listen(3000, host, function(err, result) {
-    if (err) {
-      console.log(err);
-    }
-  });
-
-  figlet(' Saiku React Bootstrap Tabs', {
-      font: 'Slant'
-    }, function(err, data) {
-    console.log(chalk.red(data) + '\n');
-    console.log(chalk.bold(' Access URLs:'));
-    console.log(chalk.blue(' -------------------------------------------------'));
-    console.log(' Webpack server runs at:     ' + chalk.blue('http://' + host + ':3000'));
-    console.log(' BrowserSync server runs at: ' + chalk.blue('http://' + host + ':3001'));
-    console.log(chalk.blue(' -------------------------------------------------\n'));
-    console.log(' Hit \'' + chalk.blue('<ctrl-c>') + '\' to shutdown.\n');
-  });
-}
 
 module.exports = config;
