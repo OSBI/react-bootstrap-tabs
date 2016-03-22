@@ -56,16 +56,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	var _Tab = __webpack_require__(1);
-	
-	var _Tab2 = _interopRequireDefault(_Tab);
-	
-	var _Tabs = __webpack_require__(3);
-	
-	var _Tabs2 = _interopRequireDefault(_Tabs);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
 	/**
 	 *   Copyright 2016 OSBI Ltd
 	 *
@@ -82,8 +72,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *   limitations under the License.
 	 */
 	
-	exports.Tab = _Tab2.default;
-	exports.Tabs = _Tabs2.default;
+	exports.Tab = __webpack_require__(1);
+	exports.Tabs = __webpack_require__(3);
 
 /***/ },
 /* 1 */
