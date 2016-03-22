@@ -1,6 +1,6 @@
 {
   "name": "saiku-react-bootstrap-tabs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tabs component for React Bootstrap",
   "main": "index.js",
   "scripts": {
