@@ -84,6 +84,21 @@ var config = {
         test: /\.(jsx|js)$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /react/,
+        loader: env === 'dev' ? 'null' : 'noop',
+        exclude: /node_modules/
+      },
+      {
+        test: /react-autobind/,
+        loader: env === 'dev' ? 'null' : 'noop',
+        exclude: /node_modules/
+      },
+      {
+        test: /underscore/,
+        loader: env === 'dev' ? 'null' : 'noop',
+        exclude: /node_modules/
       }
     ]
   },
